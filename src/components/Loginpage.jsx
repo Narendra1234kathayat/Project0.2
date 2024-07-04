@@ -27,8 +27,8 @@ function Loginpage() {
   };
 
   return (
-    <div className="py-32   mx-auto text-center bg-gray-400"> 
-      <div className='w-fit mx-auto bg-green-50 py-6 px-8 my-10 rounded-xl'>
+    <div className="py-32   mx-auto text-center bg-gray-300"> 
+      <div className='w-fit mx-auto bg-gray-500 py-6 px-8 my-10 rounded-xl text-white'>
         <h1 className='font-extrabold text-5xl py-3 uppercase'> LOGIN /Signup</h1>
       <div className='Register my-6 '>
         <div className='flex justify-between items-center my-3 font-bold'>
@@ -39,7 +39,7 @@ function Loginpage() {
         <label>Password</label>
         <input className='p-3' type='password' name="password" value={formData.password} onChange={change} />
         </div>
-        <button type="button" className="btn bg-red-200 p-2 rounded-lg m-2 w-full" onClick={handleregister}>submit</button>
+        <button type="button" className="btn bg-blue-gray-50 text-black p-2 rounded-lg m-2 w-full" onClick={handleregister}>submit</button>
       </div>
       <div className='Regisyr my-3'>
        <div className='flex justify-between font-bold content-center my-3'>
@@ -50,7 +50,7 @@ function Loginpage() {
        <label> Password</label>
        <input className='p-3' type='password' name="password" onChange={changedata} value />
        </div>
-        <button  type="button" className="btn bg-green-500 p-2 rounded-lg text-center m-2 w-full">submit</button>
+        <button  type="button" className="btn bg-blue-gray-50 text-black p-2 rounded-lg text-center m-2 w-full">submit</button>
       </div>
       </div>
       
