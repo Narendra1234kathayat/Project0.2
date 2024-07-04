@@ -4,6 +4,7 @@ import { BrowserRouter,Route,Routes } from "react-router-dom";
 import Nav from "./components/Nav.jsx";
 import Pages from "./components/Pages.jsx";
 import Account from "./components/Account.jsx";
+import Register from "./components/Register.jsx";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
       <Route path="/home" element={<Home/>}/>
       <Route path="/pages" element={<Pages/>}/>
       <Route path="/account" element={<Account/>}/>
+      <Route path="/register" element={<Register/>}/>
     </Routes>
     </BrowserRouter>
    
