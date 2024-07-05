@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Button } from '@material-tailwind/react';
 function Loginpage() {
   const [formData, setFormData] = useState({
     username: '',
@@ -27,34 +28,35 @@ function Loginpage() {
   };
 
   return (
-    <div className="py-32   mx-auto text-center bg-gray-300"> 
-      <div className='w-fit mx-auto bg-gray-500 py-6 px-8 my-10 rounded-xl text-white'>
-        <h1 className='font-extrabold text-5xl py-3 uppercase'> LOGIN /Signup</h1>
-      <div className='Register my-6 '>
-        <div className='flex justify-between items-center my-3 font-bold'>
-        <label className=''>NAME</label>
-        <input className='p-3' type='text' name="username" value={formData.username} onChange={change} />
-        </div>
-        <div className='flex content-center justify-between my-3 font-bold'>
-        <label>Password</label>
-        <input className='p-3' type='password' name="password" value={formData.password} onChange={change} />
-        </div>
-        <button type="button" className="btn bg-blue-gray-50 text-black p-2 rounded-lg m-2 w-full" onClick={handleregister}>submit</button>
+    <div className="pt-40 pb-5 h-screen mx-auto bg-gray-300 overflow-auto"> 
+  <div className="max-w-lg min-w-fit mx-auto bg-gray-200 pt-6 p-3 my-10 rounded-xl text-black">
+    <h1 className="font-bold text-5xl p-3 uppercase text-black text-center">LOGIN / Signup</h1>
+    <div className="flex flex-col">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-2 mx-3">
+        <label className="text-2xl self-center">User Name</label>
+        <input
+          type="text"
+          className="p-2 rounded-md border border-gray-300"
+          placeholder="Username"
+          autoComplete="off"
+        />
       </div>
-      <div className='Regisyr my-3'>
-       <div className='flex justify-between font-bold content-center my-3'>
-       <label>User</label>
-       <input type='text' className='p-3' name="user" onChange={changedata}  />
-       </div>
-       <div className='flex justify-between content-center font-bold my-3'>
-       <label> Password</label>
-       <input className='p-3' type='password' name="password" onChange={changedata} value />
-       </div>
-        <button  type="button" className="btn bg-blue-gray-50 text-black p-2 rounded-lg text-center m-2 w-full">submit</button>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-2 mx-3">
+        <label className="text-2xl self-center">Password</label>
+        <input
+          type="password"
+          className="p-2 rounded-md border border-gray-300"
+          placeholder="Password"
+          autoComplete="off"
+        />
       </div>
-      </div>
-      
+      <button className="w-full p-3 mt-5 text-2xl bg-black text-white rounded-lg">
+        LOGIN
+      </button>
     </div>
+  </div>
+</div>
+
   );
 }
 

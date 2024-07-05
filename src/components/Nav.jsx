@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState}from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Navbar,
@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 function Nav() {
   const [openNav, setOpenNav] = React.useState(false);
-
+  const [active,setActive]=useState('');
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -18,13 +18,15 @@ function Nav() {
     );
   }, []);
   const navigate = useNavigate();
-  const handleSignin = () => {
+  const handleSignin = (sign) => {
     navigate("/sign");
     console.log("dfkajs");
+    setActive(sign);
   };
-  const handleRegister = () => {
+  const handleRegister = (register) => {
     console.log("Navigating to Register page");
     navigate("/register");
+    setActive(register);
   };
 
   const navList = (
@@ -74,7 +76,8 @@ function Nav() {
           Account
         </Typography>{" "}
       </Link>
-      <Typography
+     <Link to="/video">
+     <Typography
         as="li"
         variant="small"
         color="blue-gray"
@@ -95,7 +98,7 @@ function Nav() {
         <a href="#" className="flex items-center">
           Blocks
         </a>
-      </Typography>
+      </Typography></Link>
       <Typography
         as="li"
         variant="small"
@@ -125,23 +128,27 @@ function Nav() {
   return (
     <Navbar className="mx-auto max-w-screen-2xl px-4 py-2 lg:px-8 lg:py-8 fixed left-0 right-0 z-10">
     <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
-      <Typography
+     <Link to="/">
+     <Typography
         as="a"
-        href="#"
+        
         className="mr-4 cursor-pointer py-2 font-bold text-5xl"
       >
         Project__
-      </Typography>
+      </Typography></Link>
       <div className="hidden lg:block">{navList}</div>
       <div className="flex items-center gap-x-1">
-        <Button variant="text" size="sm" className="hidden lg:inline-block">
+        <Button variant="text" size="sm" className={`hidden lg:inline-block border-solid border-2 border-black ${active == "sign-in" ? 'bg-black text-white': ''}`} onClick={()=>{handleSignin("sign-in")}}>
           <span>Log In</span>
         </Button>
         <Button
-          variant="gradient"
+          variant="text"
+          
           size="sm"
-          className="hidden lg:inline-block"
-          onClick={handleSignin}
+          
+          className={` hidden lg:inline-block border-solid border-2 border-black ${active == "register" ? 'bg-black text-white': ''}`}
+          onClick={()=>{handleRegister("register")}}
+          
         >
           <span>Sign in</span>
         </Button>
