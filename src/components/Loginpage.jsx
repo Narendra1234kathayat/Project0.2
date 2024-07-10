@@ -18,11 +18,17 @@ function Loginpage() {
       const response = await axios.post("http://localhost:5050/api/v1/users/login", formData,{
         withCredentials: true // This ensures cookies are sent and received
       });
+      
      
       
       if (response.status == 200) {
+        const data={
+          data:response.data.data.accesstoken,
+          expiry:'1s'
+  
+        }
         navigate("/");
-        localStorage.setItem("accesstoken",response.data.data.accesstoken)
+        localStorage.setItem("accesstoken",data)
       }
     } catch (error) {
       console.log(error.message);
