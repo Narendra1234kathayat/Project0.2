@@ -2,7 +2,7 @@ import React, {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTodo, removeTodo } from "../Store/Slices/todoSlice";
 
-const Video = () => {
+const watchHistory = () => {
   const [todo, setTodo] = useState("");
   const dispatch = useDispatch();
   // useselector
@@ -60,4 +60,4 @@ const Video = () => {
   );
 };
 
-export default Video;
+export default watchHistory;

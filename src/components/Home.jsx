@@ -67,7 +67,7 @@ function Home() {
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
             >
-              <div className="relative h-48 w-full">
+              <div className="relative h-52 md:h-48 w-full">
                 <img
                   src={`http://localhost:5050/${video.thumbnail}`}
                   className={`h-full w-full object-fill transition-opacity duration-500 ${activeVideo === index ? "opacity-0" : "opacity-100"}`}

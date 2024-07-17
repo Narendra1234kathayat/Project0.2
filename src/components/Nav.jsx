@@ -288,8 +288,11 @@ function Nav() {
             <span>Sign in</span>
           </Button>
         ) : (
+          
           <div>
+              <Link to={`/channel/${user?.username}`}>
             <img src={`http://localhost:5050/${useravatar}`} alt="User Avatar" className="sm:ms-2 h-8 w-8 rounded-full" />
+            </Link>
           </div>
         )}
       </div>

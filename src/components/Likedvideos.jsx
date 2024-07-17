@@ -46,7 +46,7 @@ const Likedvideos = () => {
     }, [activeVideo]);
 
     return (
-        <div className='bg-blue-gray-100 h-screen pt-36 overflow-auto'>
+        <div className='bg-blue-gray-100 h-screen pt-28 overflow-auto'>
             <h1 className="text-3xl text-center mb-2">Your Liked videos</h1>
             <div className='container mx-auto grid sm:grid-cols-2 md:grid-cols-3 gap-2'>
                 {videos.length > 0 && videos.map((video, index) => (

@@ -130,7 +130,7 @@ const Watchvideo = () => {
               </button>
             </div>
             <div className="flex flex-col">
-              <h1 className="py-5 bg-white font-bold ps-3">Comments {video.owner?._id}</h1>
+              <h1 className="py-5 bg-white font-bold ps-3">Comments </h1>
             </div>
           </div>
         ) : (

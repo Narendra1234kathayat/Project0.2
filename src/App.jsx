@@ -5,7 +5,7 @@ import Nav from "./components/Nav.jsx";
 import Pages from "./components/Pages.jsx";
 import Account from "./components/Account.jsx";
 import Register from "./components/Register.jsx";
-import Video from "./components/Video.jsx";
+import watchHistory from "./components/watchHistory.jsx";
 import Watchvideo from "./components/Watchvideo.jsx";
 import Likedvideos from "./components/Likedvideos.jsx";
 import Addvideos from "./components/Addvideos.jsx";
@@ -19,7 +19,7 @@ function App() {
     <Nav/>
     
     <Routes>
-      <Route path="/video" element={<Video/>}/>
+      <Route path="/watch_history" element={<watchHistory/>}/>
       <Route path="/" element={<Home/>}/>
       <Route path="/sign" element={<Loginpage/>}/>    
       <Route path="/pages" element={<Pages/>}/>

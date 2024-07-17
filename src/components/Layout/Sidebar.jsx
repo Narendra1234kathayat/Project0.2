@@ -89,12 +89,13 @@ useEffect(() => {
                   Add vidoes
                 </ListItem>
                 </Link>
+                <Link to="/watch_history">
                 <ListItem>
                   <ListItemPrefix>
                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                   </ListItemPrefix>
-                  Reporting
-                </ListItem>
+                  watch history
+                </ListItem></Link>
                 <ListItem>
                   <ListItemPrefix>
                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -146,7 +147,7 @@ useEffect(() => {
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Inbox
+            Liked videos
             {/* <ListItemSuffix>
               <Chip
                 value="14"
