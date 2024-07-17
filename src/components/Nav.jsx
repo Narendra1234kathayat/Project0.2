@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { searchuser } from "../Store/Slices/searchSlice";
+import { setSearchData } from "../Store/Slices/searchSlice";
+import Cookies from 'js-cookie';
+
 import {
   Navbar,
   Collapse,
@@ -12,9 +14,12 @@ import {
 import { Link } from "react-router-dom";
 import Sidebar from "./Layout/Sidebar";
 import axios from "axios";
+import {ToastContainer, toast } from "react-toastify";
 
 function Nav() {
   const dispatch = useDispatch();
+  const[useravatar,setUserAvatar]=useState("");
+  const[user,setUser]=useState([]);
   const [userdetail, setUserDetail] = useState(false);
   const [openNav, setOpenNav] = useState(false);
   const [active, setActive] = useState("");
@@ -25,16 +30,32 @@ function Nav() {
   // signout method
   const handleSignout = async () => {
     try {
+      localStorage.clear("accesstoken")
       const data = await axios.post(
-        "http://localhost:5050/api/v1/users/logout",
-        {},
+        "http://localhost:5050/api/v1/users/logout",{},
+        
         { withCredentials: true }
       );
       if (data.status === 200) {
         setUserDetail(false);
         navigate("/sign");
+        
         localStorage.removeItem("accesstoken");
         setUserDetail(false);
+      }
+      else{
+        toast.success('🦄 success ', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          
+         
+          });
       }
     } catch (error) {
       console.error("Error during sign out:", error.message);
@@ -42,6 +63,7 @@ function Nav() {
   };
 
   useEffect(() => {
+    
     const handleResize = () => {
       if (window.innerWidth >= 960) {
         setOpenNav(false);
@@ -57,17 +79,22 @@ function Nav() {
 
   const getuser = async () => {
     try {
-      const data = await axios.get(
+      const res = await axios.get(
         "http://localhost:5050/api/v1/users/currentuser",
         { withCredentials: true }
       );
-      if (data.status === 200) {
+      if (res.status === 200) {
         setUserDetail(true);
+        setUserAvatar(res.data.data.avatar)
+        setUser(res.data.data);
+        console.log(res.data.data);
+
+        console.log(data,"data ");
       } else {
         setUserDetail(false);
       }
     } catch (error) {
-      console.error("Error fetching user details:", error.message);
+      console.log("Error fetching user details:", error.message);
       setUserDetail(false);
     }
   };
@@ -77,18 +104,21 @@ function Nav() {
   const showInput = (e) => {
     e.preventDefault();
     const data = searchdata.toLowerCase();
-    if(data.length > 0) {
-      dispatch(searchuser(data));
-    }
+    
+      dispatch(setSearchData(data));
+    setSearch("");
+    navigate("/")
   };
 
+
   useEffect(() => {
-    const token = localStorage.getItem("accesstoken");
+   
+    const token = localStorage.getItem('accesstoken');
     if (token) {
       getuser()
         .then((res) => {
           setUserDetail(true);
-          console.log(res);
+          // console.log(res);
         })
         .catch(console.error);
     } else {
@@ -129,7 +159,7 @@ function Nav() {
           <span>Home</span>
         </Typography>
       </Link>
-      <Link to="/channel" className="flex items-center">
+      <Link to={`/channel/${user?.username}`} className="flex items-center">
         <Typography
           as="li"
           variant="small"
@@ -200,120 +230,128 @@ function Nav() {
 
   return (
     <>
-      <Navbar className="bg-gray-300 mx-auto max-w-screen-2xl px-4 py-2 lg:px-8 lg:py-8 fixed left-0 right-0 z-10">
-        <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
-          <Link to="/" className="mr-4 py-2 font-bold sm:text-3xl md:text-5xl">
-            Project__
-          </Link>
-          <div className="flex justify-center ms-auto sm:mx-auto ">
-            <i className="fa fa-search block sm:hidden" onClick={showInput} aria-hidden="true"></i>
-            <form className="hidden relative sm:flex " onSubmit={showInput}>
-              <input
-                type="text"
-                value={searchdata}
-                onChange={(e) => change(e)}
-                placeholder="searchhere"
-                className="border-black active:border-none focus:border-none p-1"
-              />
-              <button type="submit" className="ms-1 sm:absolute right-0 top-0 bottom-0 pe-2 text-grey">
-                <i className="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </form>
-          </div>
-          <div className="hidden lg:block">{navList}</div>
-          <div className="flex items-center gap-x-1">
-            {userdetail ? (
-              <Button
-                variant="text"
-                size="sm"
-                className={`hidden lg:inline-block border-solid border-2 border-black ${
-                  active === "sign-in" ? "bg-black text-white" : ""
-                }`}
-                onClick={handleSignout}
-              >
-                <span>Log out</span>
-              </Button>
-            ) : (
-              <Button
-                variant="text"
-                size="sm"
-                className={`hidden lg:inline-block border-solid border-2 border-black ${
-                  active === "sign-in" ? "bg-black text-white" : ""
-                }`}
-                onClick={() => handleSignin("sign-in")}
-              >
-                <span>Log In</span>
-              </Button>
-            )}
-            <Button
-              variant="text"
-              size="sm"
-              className={`hidden lg:inline-block border-solid border-2 border-black ${
-                active === "register" ? "bg-black text-white" : ""
-              }`}
-              onClick={() => handleRegister("register")}
-            >
-              <span>Sign in</span>
-            </Button>
-          </div>
-          <IconButton
+    
+    <Navbar className="bg-gray-300 mx-auto w-full   fixed left-0 right-0 z-20">
+    <div className="flex items-center justify-between text-blue-gray-900">
+      <Link to="/" className="mr-4  py-2 font-bold sm:text-3xl md:text-5xl">
+        Project__
+      </Link>
+      <div className="flex justify-center ms-auto sm:mx-auto">
+        <i className="fa fa-search block sm:hidden" onClick={showInput} aria-hidden="true"></i>
+        <form className="hidden relative sm:flex" onSubmit={showInput}>
+          <input
+            type="text"
+            value={searchdata}
+            onChange={(e) => change(e)}
+            placeholder="searchhere"
+            className="border-black active:border-none focus:border-none p-1"
+          />
+          <button type="submit" className="ms-1 sm:absolute right-0 top-0 bottom-0 pe-2 text-grey">
+            <i className="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </form>
+      </div>
+      <div className="hidden lg:block">{navList}</div>
+      <div className="flex items-center gap-x-2">
+        {userdetail ? (
+          <Button
             variant="text"
-            className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-            ripple={false}
-            onClick={() => setOpenNav(!openNav)}
+            size="sm"
+            className={`hidden lg:inline-block border-solid border-2 border-black ${
+              active === "sign-in" ? "bg-black text-white" : ""
+            }`}
+            onClick={handleSignout}
           >
-            {openNav ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                className="h-6 w-6"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                />
-              </svg>
-            )}
-          </IconButton>
-        </div>
-        <Collapse open={openNav}>
-          <div className="container mx-auto">
-            {navList}
-            <div className="sm:flex items-center gap-x-1 gap-y-2">
-              <Button
-                className="my-2 sm:my-0 me-1"
-                onClick={() => handleSignin("sign-in")}
-              >
-                <span>Log In</span>
-              </Button>
-              <Button onClick={() => handleRegister("register")}>
-                <span>Sign in</span>
-              </Button>
-            </div>
+            <span>Log out</span>
+          </Button>
+        ) : (
+          <Button
+            variant="text"
+            size="sm"
+            className={`hidden lg:inline-block border-solid border-2 border-black ${
+              active === "sign-in" ? "bg-black text-white" : ""
+            }`}
+            onClick={() => handleSignin("sign-in")}
+          >
+            <span>Log In</span>
+          </Button>
+        )}
+        {!userdetail ? (
+          <Button
+            variant="text"
+            size="sm"
+            className={`hidden lg:inline-block border-solid border-2 border-black ${
+              active === "register" ? "bg-black text-white" : ""
+            }`}
+            onClick={() => handleRegister("register")}
+          >
+            <span>Sign in</span>
+          </Button>
+        ) : (
+          <div>
+            <img src={`http://localhost:5050/${useravatar}`} alt="User Avatar" className="sm:ms-2 h-8 w-8 rounded-full" />
           </div>
-        </Collapse>
-      </Navbar>
+        )}
+      </div>
+      <IconButton
+        variant="text"
+        className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+        ripple={false}
+        onClick={() => setOpenNav(!openNav)}
+      >
+        {openNav ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            className="h-6 w-6"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        )}
+      </IconButton>
+    </div>
+    <Collapse open={openNav}>
+      <div className="container mx-auto">
+        {navList}
+        <div className="sm:flex items-center gap-x-1 gap-y-2">
+          <Button className="my-2 sm:my-0 me-1" onClick={() => handleSignin("sign-in")}>
+            <span>Log In</span>
+          </Button>
+          <Button onClick={() => handleRegister("register")}>
+            <span>Sign in</span>
+          </Button>
+        </div>
+      </div>
+    </Collapse>
+  </Navbar>
+      <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+/>
 
-      <Sidebar />
+      {userdetail ?<Sidebar /> :""}
     </>
   );
 }

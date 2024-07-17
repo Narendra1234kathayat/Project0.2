@@ -6,6 +6,9 @@ import Pages from "./components/Pages.jsx";
 import Account from "./components/Account.jsx";
 import Register from "./components/Register.jsx";
 import Video from "./components/Video.jsx";
+import Watchvideo from "./components/Watchvideo.jsx";
+import Likedvideos from "./components/Likedvideos.jsx";
+import Addvideos from "./components/Addvideos.jsx";
 
 function App() {
 
@@ -20,8 +23,11 @@ function App() {
       <Route path="/" element={<Home/>}/>
       <Route path="/sign" element={<Loginpage/>}/>    
       <Route path="/pages" element={<Pages/>}/>
-      <Route path="/channel" element={<Account/>}/>
+      <Route path="/channel/:type" element={<Account/>}/>
       <Route path="/register" element={<Register/>}/>
+      <Route path="/video/:id" element={<Watchvideo/>}/>
+      <Route path="/liked_videos" element={<Likedvideos/>}/>
+      <Route path="/add_videos" element={<Addvideos/>}/>
     </Routes>
     </BrowserRouter>
    

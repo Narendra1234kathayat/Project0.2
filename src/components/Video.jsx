@@ -17,9 +17,9 @@ const Video = () => {
 
   return (
     <>
-    <div className="pt-36 container mx-auto">
+    <div className="pt-36 2xl:container mx-auto">
       <div className="grid sm:grid-cols-2 mx-auto md:grid-cols-3 ">
-        <video className="h-full w-full rounded-lg" controls>
+        <video className="h-full w-full rounded-lg" controls loop >
           <source
             src="https://docs.material-tailwind.com/demo.mp4"
             type="video/mp4"
