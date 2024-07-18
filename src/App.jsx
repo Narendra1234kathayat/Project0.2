@@ -5,11 +5,13 @@ import Nav from "./components/Nav.jsx";
 import Pages from "./components/Pages.jsx";
 import Account from "./components/Account.jsx";
 import Register from "./components/Register.jsx";
-import watchHistory from "./components/watchHistory.jsx";
+
 import Watchvideo from "./components/Watchvideo.jsx";
 import Likedvideos from "./components/Likedvideos.jsx";
 import Addvideos from "./components/Addvideos.jsx";
-
+import User from "./components/User.jsx";
+import History from "./components/History.jsx";
+import WatchHistory from "./components/WatchHistory.jsx";
 function App() {
 
 
@@ -17,9 +19,8 @@ function App() {
     <>
     <BrowserRouter>
     <Nav/>
-    
     <Routes>
-      <Route path="/watch_history" element={<watchHistory/>}/>
+      
       <Route path="/" element={<Home/>}/>
       <Route path="/sign" element={<Loginpage/>}/>    
       <Route path="/pages" element={<Pages/>}/>
@@ -28,6 +29,9 @@ function App() {
       <Route path="/video/:id" element={<Watchvideo/>}/>
       <Route path="/liked_videos" element={<Likedvideos/>}/>
       <Route path="/add_videos" element={<Addvideos/>}/>
+      <Route path="/user" element={<User/>}/>
+      <Route path="/history" element={<History/>}/>
+      <Route path="/watch-history" element={<WatchHistory/>}/>
     </Routes>
     </BrowserRouter>
    

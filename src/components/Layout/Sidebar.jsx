@@ -89,7 +89,7 @@ useEffect(() => {
                   Add vidoes
                 </ListItem>
                 </Link>
-                <Link to="/watch_history">
+                <Link to="/history">
                 <ListItem>
                   <ListItemPrefix>
                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />

@@ -182,7 +182,7 @@ function Nav() {
           <span>channel</span>
         </Typography>
       </Link>
-      <Link to="/video" className="flex items-center">
+      <Link to="/history" className="flex items-center">
         <Typography
           as="li"
           variant="small"
@@ -201,7 +201,7 @@ function Nav() {
               fill="#90A4AE"
             />
           </svg>
-          <span>Blocks</span>
+          <span>History</span>
         </Typography>
       </Link>
       <Typography
@@ -290,7 +290,7 @@ function Nav() {
         ) : (
           
           <div>
-              <Link to={`/channel/${user?.username}`}>
+              <Link to="/user">
             <img src={`http://localhost:5050/${useravatar}`} alt="User Avatar" className="sm:ms-2 h-8 w-8 rounded-full" />
             </Link>
           </div>
