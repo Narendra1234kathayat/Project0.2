@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, removeTodo } from "../Store/Slices/todoSlice";
+// import { addTodo, removeTodo } from "../Store/Slices/todoSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
@@ -95,7 +95,7 @@ const History = () => {
   };
 
   return (
-    <div className=" 2xl:container mx-auto px-4">
+    <div className=" 2xl:container mx-auto px-4 text-white">
       <h1 className="text-2xl my-2 font-bold">
         Watch history
       </h1>
@@ -103,10 +103,10 @@ const History = () => {
         {watchhistory.map((video, index) => (
           <div
             key={index}
-            className="p-2 group cursor-pointer"
+            className="p-2 group cursor-pointer "
             onClick={() => handleWatchHistory(video._id)}
           >
-            <div className="relative h-52 pb-56.25%">
+            <div className="relative h-52 pb-56.25% ">
               <img
                 className="absolute inset-0 w-full h-full object-cover rounded-lg transition-opacity duration-300 group-hover:opacity-0"
                 src={`http://localhost:5050/${video.thumbnail}`}
@@ -124,9 +124,14 @@ const History = () => {
                 Your browser does not support the video tag.
               </video>
             </div>
-            <div className="mt-2">
+            <div className="mt-2 flex gap-2">
+              <div>
+                <img src={`http://localhost:5050/${video.owner?.avatar}` } className="h-9 rounded-full" />
+              </div>
+              <div>
               <p className="font-semibold">{video.title}</p>
               <p className="text-sm text-gray-600">By: {video.owner?.fullname}</p>
+              </div>
             </div>
           </div>
         ))}

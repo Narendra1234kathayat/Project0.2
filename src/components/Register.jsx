@@ -62,7 +62,7 @@ const Register = () => {
   };
 
   return (
-    <div className="pt-40 pb-5 h-screen bg-gray-300 overflow-auto">
+    <div className="pt-40 pb-5 h-screen bg-black overflow-auto">
       <div className="max-w-xl min-w-fit px-5 py-5 bg-gray-200 mx-auto rounded-lg">
         <h1 className="text-5xl font-bold text-center mb-3">Register</h1>
         <form onSubmit={handleSubmit} encType="multipart/form-data">

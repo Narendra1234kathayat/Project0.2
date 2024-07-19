@@ -82,7 +82,7 @@ const Account = () => {
   };
 
   // Handle form submission for updating avatar
-  const handleUpdateAvatar = async (e) => {
+  const handleAvatar = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     if (avatar) formData.append('avatar', avatar);
@@ -107,7 +107,7 @@ const Account = () => {
   };
 
   // Handle form submission for updating cover image
-  const handleUpdateCoverImg = async (e) => {
+  const handleCoverimg = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     if (coverImg) formData.append('coverImg', coverImg);
@@ -132,7 +132,7 @@ const Account = () => {
   };
 
   return (
-    <div className="bg-gray-300 h-screen pt-32 overflow-auto">
+    <div className="bg-black h-screen pt-32 overflow-auto">
       <div className="container relative mx-auto sm:text-4xl font-bold">
         <div className="w-full text-center mb-4">
           <form onSubmit={handleSubmit} className="flex justify-center">
@@ -150,7 +150,7 @@ const Account = () => {
           {error && <h1 className="text-red-500 text-center">{error}</h1>} {/* Display error message */}
          
           {all.length > 0 && all.map((u) => (
-            <div key={u._id} className="p-4 rounded-lg shadow-lg mb-8 bg-blue-gray-100 relative">
+            <div key={u._id} className="p-4 rounded-lg shadow-lg mb-8 bg-black text-white relative">
               <img src={`http://localhost:5050/${u.coverImg}`} className="w-full h-64 object-contain bg-white rounded-t-lg cursor-pointer" alt="coverimg" onClick={handleCoverImgClick}/>
               <div className="w-24 h-24 mb-4 absolute top-32 left-20 cursor-pointer" onClick={handleUpdateClick}>
                 <img src={`http://localhost:5050/${u.avatar}`} className="w-full h-full object-cover border-4 border-black rounded-full" alt={u.avatar}/>
@@ -180,7 +180,7 @@ const Account = () => {
           {avatarForm && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="update bg-white p-4 rounded-lg shadow-lg text-2xl">
-              <form onSubmit={handleUpdateAvatar}>
+              <form onSubmit={handleAvatar}>
                 <div className="mb-4">
                   <label className="block mb-2">Avatar</label>
                   <input 
@@ -212,7 +212,7 @@ const Account = () => {
         {coverImgForm && (
           <div className="fixed inset-0 flex  items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="update bg-white p-4 rounded-lg shadow-lg text-2xl">
-              <form onSubmit={handleUpdateCoverImg}>
+              <form onSubmit={handleCoverimg}>
                 <div className="mb-4">
                   <label className="block mb-2">Cover Image</label>
                   <input 

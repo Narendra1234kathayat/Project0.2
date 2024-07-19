@@ -54,7 +54,7 @@ function Loginpage() {
   };
 
   return (
-    <div className="pt-40 pb-5 h-screen mx-auto bg-gray-300 overflow-auto">
+    <div className="pt-40 pb-5 h-screen mx-auto bg-black overflow-auto">
       <div className="max-w-lg min-w-fit mx-auto bg-gray-200 pt-6 p-3 my-10 rounded-xl text-black">
         <ToastContainer />
         <h1 className="font-bold text-5xl p-3 uppercase text-black text-center">LOGIN</h1>

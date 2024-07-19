@@ -76,8 +76,8 @@ const Watchvideo = () => {
   }
 
   return (
-    <div className="h-screen bg-blue-gray-200 w-full overflow-auto">
-      <div className="sm:mt-14 md:mt-24 lg:mt-20 mx-auto container lg:flex p-5">
+    <div className="h-screen bg-black w-full overflow-auto">
+      <div className="sm:mt-14 md:mt-24 text-white lg:mt-20 mx-auto container lg:flex p-5">
         {video ? (
           <div className="w-full h-full">
             <div>
@@ -107,20 +107,20 @@ const Watchvideo = () => {
                     : video.description}
                 </h1>
                 <div className="flex">
-                  <h1 className="mx-2 bg-white p-2 rounded-md">{video.views || 0} views</h1>
-                  <h2 className="bg-white p-2 rounded-md">{video.owner?.subscribersCount || 0} subscribers</h2>
+                  <h1 className="mx-2  p-2 rounded-md">{video.views || 0} views</h1>
+                  <h2 className=" p-2 rounded-md">{video.owner?.subscribersCount || 0} subscribers</h2>
                 </div>
               </div>
             </div>
             <div className="flex justify-between px-2 my-3">
               <div>
                 <button
-                  className={`py-1 px-4 rounded-lg me-2 ${like ? "bg-black text-white" : "bg-white"}`}
+                  className={`py-1 px-4 rounded-lg me-2 ${like ? " text-red-800" : ""}`}
                   onClick={() => toggleLike(video._id)}
                 >
-                  Like
+                 {like ? "Liked":"Like"}
                 </button>
-                <button className="bg-white py-1 px-4 rounded-lg me-2">Unlike</button>
+                <button className=" py-1 px-4 rounded-lg me-2">Unlike</button>
               </div>
               <button
                 className={`bg-red-800 font-bold py-1 px-4 rounded-lg me-2 ${subscription ? "text-black" : "text-white"}`}
@@ -130,7 +130,7 @@ const Watchvideo = () => {
               </button>
             </div>
             <div className="flex flex-col">
-              <h1 className="py-5 bg-white font-bold ps-3">Comments </h1>
+              <h1 className="py-5 text-blue-gray-800 bg-white  font-bold ps-3">Comments </h1>
             </div>
           </div>
         ) : (
