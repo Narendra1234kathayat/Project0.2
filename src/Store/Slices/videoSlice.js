@@ -36,13 +36,13 @@ export function fetchVideos() {
       //console.log(searchData);
       const requestOptions = {
         method: "GET",
-        url: "https://backend-2sfx.onrender.com/api/v1/videos",
+        url: "https://backend-twff.onrender.com/api/v1/videos",
         params: { query: searchData },
         withCredentials: true,
       };
 
       const res = await axios(requestOptions);
-      // const res = await axios.get(`https://backend-2sfx.onrender.com/api/v1/videos`, {
+      // const res = await axios.get(`https://backend-twff.onrender.com/api/v1/videos`, {
       //   params: { query: searchData },
       //   withCredentials: true,
       // });

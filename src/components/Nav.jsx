@@ -33,7 +33,7 @@ function Nav() {
     try {
       localStorage.clear("accesstoken")
       const data = await axios.post(
-        "https://backend-2sfx.onrender.com/api/v1/users/logout",{},
+        "https://backend-twff.onrender.com/api/v1/users/logout",{},
         
         { withCredentials: true }
       );
@@ -81,7 +81,7 @@ function Nav() {
   const getuser = async () => {
     try {
       const res = await axios.get(
-        "https://backend-2sfx.onrender.com/api/v1/users/currentuser",
+        "https://backend-twff.onrender.com/api/v1/users/currentuser",
         { withCredentials: true }
       );
       if (res.status === 200) {
@@ -294,7 +294,7 @@ function Nav() {
           
           <div>
               <Link to="/user">
-            <img src={`https://backend-2sfx.onrender.com/${useravatar}`} alt="User Avatar" className="sm:ms-2 h-8 w-8 rounded-full" />
+            <img src={`https://backend-twff.onrender.com/${useravatar}`} alt="User Avatar" className="sm:ms-2 h-8 w-8 rounded-full" />
             </Link>
           </div>
         )}

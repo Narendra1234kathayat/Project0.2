@@ -30,7 +30,7 @@ const User = () => {
   const getUserDetail = async () => {
     try {
       const res = await axios.get(
-        "https://backend-2sfx.onrender.com/api/v1/users/currentuser",
+        "https://backend-twff.onrender.com/api/v1/users/currentuser",
         {
           withCredentials: true,
         }
@@ -58,7 +58,7 @@ const User = () => {
     event.preventDefault();
     try {
       const res = await axios.patch(
-        "https://backend-2sfx.onrender.com/api/v1/users/update-account",
+        "https://backend-twff.onrender.com/api/v1/users/update-account",
         { fullname: name, email: email },
         {
           withCredentials: true,
@@ -87,7 +87,7 @@ const User = () => {
     if (avatar) formData.append('avatar', avatar);
 
     try {
-      const response = await axios.patch(`https://backend-2sfx.onrender.com/api/v1/users/update-avatar`, formData, {
+      const response = await axios.patch(`https://backend-twff.onrender.com/api/v1/users/update-avatar`, formData, {
         withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -113,7 +113,7 @@ const User = () => {
     if (coverImg) formData.append('coverImg', coverImg);
 
     try {
-      const response = await axios.patch(`https://backend-2sfx.onrender.com/api/v1/users/cover-Image`, formData, {
+      const response = await axios.patch(`https://backend-twff.onrender.com/api/v1/users/cover-Image`, formData, {
         withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -138,7 +138,7 @@ const User = () => {
         <>
           <div className="bg-black border-2 shadow-md rounded-lg overflow-hidden md:flex md:items-center mx-auto max-w-4xl">
             <img
-              src={`https://backend-2sfx.onrender.com/${userdetail.avatar}`}
+              src={`https://backend-twff.onrender.com/${userdetail.avatar}`}
               onClick={handleAvatarChange}
               alt="User Avatar"
               className="h-32 w-32 mx-auto md:h-auto md:w-32 md:rounded-l-lg object-cover"
@@ -146,7 +146,7 @@ const User = () => {
             <div className="p-4 md:flex md:flex-col md:justify-between w-full">
               <div className="mb-4 md:mb-0 md:mr-4">
                 <img
-                  src={`https://backend-2sfx.onrender.com/${userdetail.coverImg}`}
+                  src={`https://backend-twff.onrender.com/${userdetail.coverImg}`}
                   onClick={handleCoverChange}
                   alt="User Cover Image"
                   className="w-full h-48 object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none"

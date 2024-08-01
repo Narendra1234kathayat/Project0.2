@@ -50,7 +50,7 @@ const Account = () => {
 
   const handleChannel = async () => {
     try {
-      const response = await axios.get(`https://backend-2sfx.onrender.com/api/v1/users/c/${user}`, {
+      const response = await axios.get(`https://backend-twff.onrender.com/api/v1/users/c/${user}`, {
         withCredentials: true
       });
       if (response.data && response.data.data) {
@@ -68,7 +68,7 @@ const Account = () => {
 
   const getUserDetails = async () => {
     try {
-      const res = await axios.get("https://backend-2sfx.onrender.com/api/v1/users/currentuser", {
+      const res = await axios.get("https://backend-twff.onrender.com/api/v1/users/currentuser", {
         withCredentials: true
       });
       if (res.status === 200) {
@@ -100,7 +100,7 @@ const Account = () => {
         throw new Error('User ID is required');
       }
 
-      const res = await axios.get('https://backend-2sfx.onrender.com/api/v1/videos/', {
+      const res = await axios.get('https://backend-twff.onrender.com/api/v1/videos/', {
         params: { userId: _id },
         withCredentials: true
       });
@@ -126,7 +126,7 @@ const Account = () => {
     if (avatar) formData.append('avatar', avatar);
 
     try {
-      const response = await axios.patch(`https://backend-2sfx.onrender.com/api/v1/users/update-avatar`, formData, {
+      const response = await axios.patch(`https://backend-twff.onrender.com/api/v1/users/update-avatar`, formData, {
         withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -150,7 +150,7 @@ const Account = () => {
     if (coverImg) formData.append('coverImg', coverImg);
 
     try {
-      const response = await axios.patch(`https://backend-2sfx.onrender.com/api/v1/users/cover-Image`, formData, {
+      const response = await axios.patch(`https://backend-twff.onrender.com/api/v1/users/cover-Image`, formData, {
         withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -199,9 +199,9 @@ const Account = () => {
           {error && <h1 className="text-red-500 text-center">{error}</h1>}
           {all.length > 0 && all.map((u) => (
             <div key={u._id} className="p-2 rounded-lg shadow-lg mb-8 bg-black text-white relative">
-              <img src={`https://backend-2sfx.onrender.com/${u.coverImg}`} className="w-full h-56 object-contain bg-white rounded-t-lg cursor-pointer" alt="coverimg" onClick={handleCoverImgClick} />
+              <img src={`https://backend-twff.onrender.com/${u.coverImg}`} className="w-full h-56 object-contain bg-white rounded-t-lg cursor-pointer" alt="coverimg" onClick={handleCoverImgClick} />
               <div className="w-24 h-24 mb-4 absolute top-32 left-20 cursor-pointer" onClick={handleUpdateClick}>
-                <img src={`https://backend-2sfx.onrender.com/${u.avatar}`} className="w-full h-full object-cover border-4 border-black rounded-full" alt={u.avatar} />
+                <img src={`https://backend-twff.onrender.com/${u.avatar}`} className="w-full h-full object-cover border-4 border-black rounded-full" alt={u.avatar} />
               </div>
               <div className="userprofile w-full flex flex-col  px-4 mt-3">
                 <div className="mb-4">
@@ -308,7 +308,7 @@ const Account = () => {
                 >
                   <div className="relative h-52 md:h-48 w-full">
                     <img
-                      src={`https://backend-2sfx.onrender.com/${video.thumbnail}`}
+                      src={`https://backend-twff.onrender.com/${video.thumbnail}`}
                       className={`h-full w-full object-fill bg-white transition-opacity duration-500 ${activeVideo === index ? "opacity-0" : "opacity-100"}`}
                       alt=""
                     />
@@ -319,13 +319,13 @@ const Account = () => {
                       loop
                       muted
                     >
-                      <source src={`https://backend-2sfx.onrender.com/${video.videoFile}`} type="video/mp4" />
+                      <source src={`https://backend-twff.onrender.com/${video.videoFile}`} type="video/mp4" />
                     </video>
                   </div>
                   <div className="flex flex-shrink-0 p-1">
                     <div className="me-1">
                       <img
-                        src={`https://backend-2sfx.onrender.com/${video.useravatar}`}
+                        src={`https://backend-twff.onrender.com/${video.useravatar}`}
                         className="p-2 w-14 rounded-full h-14"
                         alt="avatar"
                       />

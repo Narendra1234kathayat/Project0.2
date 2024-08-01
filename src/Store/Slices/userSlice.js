@@ -19,7 +19,7 @@ export function fetchUser(){
     return async function fetchuserThunk(dispatch,getState){
         try {
             const res = await axios.get(
-                "https://backend-2sfx.onrender.com/api/v1/users/currentuser",
+                "https://backend-twff.onrender.com/api/v1/users/currentuser",
                 { withCredentials: true }
               );
               if(res.status ===200){

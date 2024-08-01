@@ -38,7 +38,7 @@ const Watchvideo = () => {
     const fetchVideo = async () => {
       try {
         const res = await axios.get(
-          `https://backend-2sfx.onrender.com/api/v1/videos/${id}`,
+          `https://backend-twff.onrender.com/api/v1/videos/${id}`,
           {
             withCredentials: true,
           }
@@ -73,7 +73,7 @@ const Watchvideo = () => {
   const toggleLike = async (videoId) => {
     try {
       const res = await axios.post(
-        `https://backend-2sfx.onrender.com/api/v1/likes/${videoId}`,
+        `https://backend-twff.onrender.com/api/v1/likes/${videoId}`,
         {},
         {
           withCredentials: true,
@@ -88,7 +88,7 @@ const Watchvideo = () => {
   const toggleSubscribed = async (ownerId) => {
     try {
       const res = await axios.post(
-        `https://backend-2sfx.onrender.com/api/v1/subscriptions/c/${ownerId}`,
+        `https://backend-twff.onrender.com/api/v1/subscriptions/c/${ownerId}`,
         {},
         {
           withCredentials: true,
@@ -103,7 +103,7 @@ const Watchvideo = () => {
   const getAllComment = async () => {
     try {
       const res = await axios.get(
-        `https://backend-2sfx.onrender.com/api/v1/comment/${id}`,
+        `https://backend-twff.onrender.com/api/v1/comment/${id}`,
         {
           withCredentials: true,
         }
@@ -120,7 +120,7 @@ const Watchvideo = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `https://backend-2sfx.onrender.com/api/v1/comment/${id}`,
+        `https://backend-twff.onrender.com/api/v1/comment/${id}`,
         { content: comment },
         {
           withCredentials: true,
@@ -140,7 +140,7 @@ const Watchvideo = () => {
     try {
       console.log(editCommentId)
       const res = await axios.patch(
-        `https://backend-2sfx.onrender.com/api/v1/comment/c/${editCommentId}`,
+        `https://backend-twff.onrender.com/api/v1/comment/c/${editCommentId}`,
         { content: editCommentContent },
         {
           withCredentials: true,
@@ -171,7 +171,7 @@ const Watchvideo = () => {
           <div className="w-full h-full">
             <div>
               <video
-                src={`https://backend-2sfx.onrender.com/${video.videoFile}`}
+                src={`https://backend-twff.onrender.com/${video.videoFile}`}
                 className="overflow-auto rounded-md"
                 controls
                 autoPlay
@@ -182,7 +182,7 @@ const Watchvideo = () => {
                 <div>
                   <img
                     className="h-9 w-9 rounded-full mx-2"
-                    src={`https://backend-2sfx.onrender.com/${video.owner?.avatar}`}
+                    src={`https://backend-twff.onrender.com/${video.owner?.avatar}`}
                     alt="Owner Avatar"
                   />
                   <h1 className="mt-3">
@@ -253,7 +253,7 @@ const Watchvideo = () => {
                 <div className="w-full border-gray-100 border-y-2" key={comm._id}>
                   <div className="flex bg-black">
                     <img
-                      src={`https://backend-2sfx.onrender.com/${comm.owner.avatar}`}
+                      src={`https://backend-twff.onrender.com/${comm.owner.avatar}`}
                       onClick={() => getuserchannel(comm.owner.username)}
                       className="h-9 w-9 my-auto rounded-full cursor-pointer"
                     />
@@ -328,7 +328,7 @@ const Watchvideo = () => {
             >
               <div className="relative h-36 w-full">
                 <img
-                  src={`https://backend-2sfx.onrender.com/${video.thumbnail}`}
+                  src={`https://backend-twff.onrender.com/${video.thumbnail}`}
                   className={`h-full w-full object-cover transition-opacity duration-500 bg-white ${
                     activeVideo === index ? "opacity-0" : "opacity-100"
                   }`}
@@ -346,7 +346,7 @@ const Watchvideo = () => {
                   muted
                 >
                   <source
-                    src={`https://backend-2sfx.onrender.com/${video.videoFile}`}
+                    src={`https://backend-twff.onrender.com/${video.videoFile}`}
                     type="video/mp4"
                   />
                 </video>
@@ -354,7 +354,7 @@ const Watchvideo = () => {
               <div className="flex flex-shrink-0">
                 <div>
                   <img
-                    src={`https://backend-2sfx.onrender.com/${video?.useravatar}`}
+                    src={`https://backend-twff.onrender.com/${video?.useravatar}`}
                     className="p-2 w-14 rounded-full h-10"
                     alt="User Avatar"
                   />

@@ -82,7 +82,7 @@ function Home() {
             >
               <div className="relative h-52 md:h-48 w-full">
                 <img
-                  src={`https://backend-2sfx.onrender.com/${video.thumbnail}`}
+                  src={`https://backend-twff.onrender.com/${video.thumbnail}`}
                   className={`h-full w-full object-fill bg-white transition-opacity duration-500 ${
                     activeVideo === index ? "opacity-0" : "opacity-100"
                   }`}
@@ -100,7 +100,7 @@ function Home() {
                   muted
                 >
                   <source
-                    src={`https://backend-2sfx.onrender.com/${video.videoFile}`}
+                    src={`https://backend-twff.onrender.com/${video.videoFile}`}
                     type="video/mp4"
                   />
                 </video>
@@ -108,7 +108,7 @@ function Home() {
               <div className="flex flex-shrink-0 p-1">
                 <div className="me-1">
                   <img
-                    src={`https://backend-2sfx.onrender.com/${video.useravatar}`}
+                    src={`https://backend-twff.onrender.com/${video.useravatar}`}
                     className="p-2 w-14 rounded-full h-14"
                     alt="avatar"
                   />

@@ -47,7 +47,7 @@ const Register = () => {
       
 
       // Example: Send formDataToSend to backend using fetch or axios
-      const response = await axios.post("https://backend-2sfx.onrender.com/api/v1/users/register", formDataToSend, {
+      const response = await axios.post("https://backend-twff.onrender.com/api/v1/users/register", formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
