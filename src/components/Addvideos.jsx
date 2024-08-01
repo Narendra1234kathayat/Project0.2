@@ -28,7 +28,7 @@ const Addvideos = () => {
     formData.append('isPublished', isPublished);
 
     try {
-      const response = await axios.post('http://localhost:5050/api/v1/videos/', formData, {
+      const response = await axios.post('https://backend-2sfx.onrender.com/api/v1/videos/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

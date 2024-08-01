@@ -5,14 +5,14 @@ import { clearSearch } from "./searchSlice";
 export const Status = Object.freeze({
   idle: "IDLE",
   loading: "LOADING",
-  error: "ERROR"
+  error: "ERROR",
 });
 
 const videoSlice = createSlice({
   name: "videos",
   initialState: {
     data: [],
-    status: Status.idle
+    status: Status.idle,
   },
   reducers: {
     addVideos(state, action) {
@@ -20,8 +20,8 @@ const videoSlice = createSlice({
     },
     setStatus(state, action) {
       state.status = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const { addVideos, setStatus } = videoSlice.actions;
@@ -33,19 +33,26 @@ export function fetchVideos() {
     try {
       dispatch(setStatus(Status.loading));
       const searchData = getState().search.data; // Correctly access search data
-      console.log(searchData);
-      const res = await axios.get(`http://localhost:5050/api/v1/videos`, {
+      //console.log(searchData);
+      const requestOptions = {
+        method: "GET",
+        url: "https://backend-2sfx.onrender.com/api/v1/videos",
         params: { query: searchData },
-        withCredentials: true
-      });
+        withCredentials: true,
+      };
+
+      const res = await axios(requestOptions);
+      // const res = await axios.get(`https://backend-2sfx.onrender.com/api/v1/videos`, {
+      //   params: { query: searchData },
+      //   withCredentials: true,
+      // });
       if (res.status === 200) {
+        console.log('jhgfxd');
         console.log(res.data.data);
         const videos = res.data.data;
         dispatch(addVideos(videos));
         dispatch(setStatus(Status.idle));
       }
-      
-    
     } catch (error) {
       dispatch(setStatus(Status.error));
       console.log(error);

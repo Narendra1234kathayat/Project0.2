@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Status, fetchVideos } from "../Store/Slices/videoSlice.js";
 
@@ -22,6 +22,11 @@ function Home() {
   };
 
   useEffect(() => {
+    if (!localStorage.getItem("accesstoken")) {
+      navigate("/login");
+      return;
+    }
+
     Object.keys(videoRefs.current).forEach((key) => {
       const video = videoRefs.current[key];
       if (video) {
@@ -36,6 +41,10 @@ function Home() {
   }, [activeVideo]);
 
   useEffect(() => {
+    if (!localStorage.getItem("accesstoken")) {
+      navigate("/sign");
+      return;
+    }
     dispatch(fetchVideos());
   }, [dispatch, searchData]); // Add searchData to the dependency array
 
@@ -47,7 +56,11 @@ function Home() {
   };
 
   if (status === Status.loading) {
-    return <h1 className="flex pt-44 md:text-5xl justify-center text-red-900">Loading......</h1>;
+    return (
+      <h1 className="flex pt-44 md:text-5xl justify-center text-red-900">
+        Loading......
+      </h1>
+    );
   }
 
   return (
@@ -63,40 +76,51 @@ function Home() {
             <div
               key={video._id}
               onClick={() => WatchVideo(video._id)}
-              className="my-1 cursor-pointer border-0 bg-black rounded-md shadow-md"
+              className="my-1 cursor-pointer  bg-transparent rounded-md shadow-md"
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
             >
               <div className="relative h-52 md:h-48 w-full">
                 <img
-                  src={`http://localhost:5050/${video.thumbnail}`}
-                  className={`h-full w-full object-fill transition-opacity duration-500 ${activeVideo === index ? "opacity-0" : "opacity-100"}`}
+                  src={`https://backend-2sfx.onrender.com/${video.thumbnail}`}
+                  className={`h-full w-full object-fill bg-white transition-opacity duration-500 ${
+                    activeVideo === index ? "opacity-0" : "opacity-100"
+                  }`}
                   alt=""
                 />
                 <video
                   ref={(el) => (videoRefs.current[index] = el)}
-                  className={`h-full w-full rounded-lg absolute object-cover right-0 bottom-0 delay-300 top-0 left-0 transition-opacity duration-500 ${activeVideo === index ? "opacity-100 block" : "opacity-0 hidden"}`}
+                  className={`h-full w-full rounded-lg absolute object-cover right-0 bottom-0 delay-300 top-0 left-0 transition-opacity duration-500 ${
+                    activeVideo === index
+                      ? "opacity-100 block"
+                      : "opacity-0 hidden"
+                  }`}
                   controls
                   loop
                   muted
                 >
-                  <source src={`http://localhost:5050/${video.videoFile}`} type="video/mp4" />
+                  <source
+                    src={`https://backend-2sfx.onrender.com/${video.videoFile}`}
+                    type="video/mp4"
+                  />
                 </video>
               </div>
               <div className="flex flex-shrink-0 p-1">
                 <div className="me-1">
                   <img
-                    src={`http://localhost:5050/${video.useravatar}`}
+                    src={`https://backend-2sfx.onrender.com/${video.useravatar}`}
                     className="p-2 w-14 rounded-full h-14"
                     alt="avatar"
                   />
-                  <p className="my-2 text-sm font-light text-gray-600">{video.username.toUpperCase()}</p>
+                  <p className="my-2 text-sm font-light text-gray-600">
+                    {video.username.toUpperCase()}
+                  </p>
                 </div>
                 <div>
                   <h1 className="desc font-bold">{video.title}</h1>
                   <p className="text-gray-600">
                     {video.description.slice(0, 40)}
-                    {video.description.length > 40 && '...'}
+                    {video.description.length > 40 && "..."}
                   </p>
                   <p>{video.views} views</p>
                 </div>

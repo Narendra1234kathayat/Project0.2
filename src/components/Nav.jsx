@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSearchData } from "../Store/Slices/searchSlice";
 import Cookies from 'js-cookie';
+import { setUser } from "../Store/Slices/userSlice";
 
 import {
   Navbar,
@@ -19,7 +20,7 @@ import {ToastContainer, toast } from "react-toastify";
 function Nav() {
   const dispatch = useDispatch();
   const[useravatar,setUserAvatar]=useState("");
-  const[user,setUser]=useState([]);
+  const[user,setUsers]=useState([]);
   const [userdetail, setUserDetail] = useState(false);
   const [openNav, setOpenNav] = useState(false);
   const [active, setActive] = useState("");
@@ -32,7 +33,7 @@ function Nav() {
     try {
       localStorage.clear("accesstoken")
       const data = await axios.post(
-        "http://localhost:5050/api/v1/users/logout",{},
+        "https://backend-2sfx.onrender.com/api/v1/users/logout",{},
         
         { withCredentials: true }
       );
@@ -80,13 +81,14 @@ function Nav() {
   const getuser = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5050/api/v1/users/currentuser",
+        "https://backend-2sfx.onrender.com/api/v1/users/currentuser",
         { withCredentials: true }
       );
       if (res.status === 200) {
         setUserDetail(true);
         setUserAvatar(res.data.data.avatar)
-        setUser(res.data.data);
+        setUsers(res.data.data);
+        dispatch(setUser(res.data.data));
         console.log(res.data.data);
 
         console.log(data,"data ");
@@ -204,6 +206,7 @@ function Nav() {
           <span>History</span>
         </Typography>
       </Link>
+      <Link to="/liked_videos">
       <Typography
         as="li"
         variant="small"
@@ -223,8 +226,8 @@ function Nav() {
             fill="#90A4AE"
           />
         </svg>
-        <span>Docs</span>
-      </Typography>
+        <span>liked</span>
+      </Typography></Link>
     </ul>
   );
 
@@ -251,7 +254,7 @@ function Nav() {
           </button>
         </form>
       </div>
-      <div className="hidden lg:block">{navList}</div>
+      <div className="hidden lg:block mx-auto">{navList}</div>
       <div className="flex items-center gap-x-2">
         {userdetail ? (
           <Button
@@ -291,7 +294,7 @@ function Nav() {
           
           <div>
               <Link to="/user">
-            <img src={`http://localhost:5050/${useravatar}`} alt="User Avatar" className="sm:ms-2 h-8 w-8 rounded-full" />
+            <img src={`https://backend-2sfx.onrender.com/${useravatar}`} alt="User Avatar" className="sm:ms-2 h-8 w-8 rounded-full" />
             </Link>
           </div>
         )}
