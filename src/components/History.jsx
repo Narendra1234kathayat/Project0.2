@@ -6,7 +6,7 @@ import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import Cookies from "js-cookie"
 const PrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
@@ -54,8 +54,11 @@ const History = () => {
 
   const getWatchhistory = async () => {
     try {
-      const res = await axios.get("https://backend-twff.onrender.com/api/v1/users/watch-history", {
+      const res = await axios.get("https://backend-5h59.onrender.com/api/v1/users/watch-history", {
         withCredentials: true,
+        headers:{
+          Authorization: Cookies.get("accessToken")
+        }
       });
       console.log(res.data.data);
       if (res.status === 200) {
@@ -109,7 +112,7 @@ const History = () => {
             <div className="relative  h-52 pb-56.25% ">
               <img
                 className="absolute inset-0 w-full h-full object-cover bg-white rounded-lg transition-opacity duration-300 group-hover:opacity-0"
-                src={`https://backend-twff.onrender.com/${video.thumbnail}`}
+                src={`https://backend-5h59.onrender.com/${video.thumbnail}`}
                 alt={video.title}
               />
               <video
@@ -120,13 +123,13 @@ const History = () => {
                 onMouseEnter={(e) => e.target.play()}
                 onMouseLeave={(e) => e.target.pause()}
               >
-                <source src={`https://backend-twff.onrender.com/${video.videoFile}`} type="video/mp4" />
+                <source src={`https://backend-5h59.onrender.com/${video.videoFile}`} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
             <div className="mt-2 flex gap-2">
               <div>
-                <img src={`https://backend-twff.onrender.com/${video.owner?.avatar}` } className="h-9 rounded-full" />
+                <img src={`https://backend-5h59.onrender.com/${video.owner?.avatar}` } className="h-9 rounded-full" />
               </div>
               <div>
               <p className="font-semibold">{video.title}</p>

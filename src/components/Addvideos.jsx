@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Cookies from "js-cookie";
 const Addvideos = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -28,9 +28,10 @@ const Addvideos = () => {
     formData.append('isPublished', isPublished);
 
     try {
-      const response = await axios.post('https://backend-twff.onrender.com/api/v1/videos/', formData, {
+      const response = await axios.post('https://backend-5h59.onrender.com/api/v1/videos/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          Authorization:Cookies.get("accessToken")
         },
         withCredentials: true,
       });

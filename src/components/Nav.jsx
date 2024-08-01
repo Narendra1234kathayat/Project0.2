@@ -33,13 +33,18 @@ function Nav() {
     try {
       localStorage.clear("accesstoken")
       const data = await axios.post(
-        "https://backend-twff.onrender.com/api/v1/users/logout",{},
+        "https://backend-5h59.onrender.com/api/v1/users/logout",{},
         
-        { withCredentials: true }
+        { withCredentials: true,
+          headers:{
+            Authorization:Cookies.get("accessToken")
+          }
+         }
       );
       if (data.status === 200) {
         setUserDetail(false);
         navigate("/sign");
+        Cookies.remove('accessToken')
         
         localStorage.removeItem("accesstoken");
         setUserDetail(false);
@@ -81,8 +86,12 @@ function Nav() {
   const getuser = async () => {
     try {
       const res = await axios.get(
-        "https://backend-twff.onrender.com/api/v1/users/currentuser",
-        { withCredentials: true }
+        "https://backend-5h59.onrender.com/api/v1/users/currentuser",
+        { withCredentials: true,
+          headers: {
+            Authorization: Cookies.get("accessToken")
+          }
+         }
       );
       if (res.status === 200) {
         setUserDetail(true);
@@ -116,17 +125,18 @@ function Nav() {
   useEffect(() => {
    
     const token = localStorage.getItem('accesstoken');
-    if (token) {
+    const tokens=Cookies.get("accessToken");
+    if (tokens) {
       getuser()
         .then((res) => {
           setUserDetail(true);
           // console.log(res);
         })
-        .catch(console.error);
+        .catch(console.error);  
     } else {
       setUserDetail(false);
     }
-  }, [localStorage.getItem("accesstoken")]);
+  }, [Cookies.get("accessToken")]);
 
   const handleSignin = (sign) => {
     navigate("/sign");
@@ -294,7 +304,7 @@ function Nav() {
           
           <div>
               <Link to="/user">
-            <img src={`https://backend-twff.onrender.com/${useravatar}`} alt="User Avatar" className="sm:ms-2 h-8 w-8 rounded-full" />
+            <img src={`https://backend-5h59.onrender.com/${useravatar}`} alt="User Avatar" className="sm:ms-2 h-8 w-8 rounded-full" />
             </Link>
           </div>
         )}

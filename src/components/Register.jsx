@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from "@material-tailwind/react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from "js-cookie"
 const Register = () => {
   // State to manage form data
   const [formData, setFormData] = useState({
@@ -47,9 +47,10 @@ const Register = () => {
       
 
       // Example: Send formDataToSend to backend using fetch or axios
-      const response = await axios.post("https://backend-twff.onrender.com/api/v1/users/register", formDataToSend, {
+      const response = await axios.post("https://backend-5h59.onrender.com/api/v1/users/register", formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
+          ,Authorization:Cookies.get("accessToken")
         }
       });
 

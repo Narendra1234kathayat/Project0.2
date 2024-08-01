@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { Status, fetchVideos } from "../Store/Slices/videoSlice";
-
+import Cookies from "js-cookie";
 const Watchvideo = () => {
   const [video, setVideo] = useState(null);
   const { id } = useParams();
@@ -38,9 +38,13 @@ const Watchvideo = () => {
     const fetchVideo = async () => {
       try {
         const res = await axios.get(
-          `https://backend-twff.onrender.com/api/v1/videos/${id}`,
+          `https://backend-5h59.onrender.com/api/v1/videos/${id}`,
           {
             withCredentials: true,
+
+            headers: {
+              Authorization: Cookies.get("accessToken"),
+            },
           }
         );
         if (res.status === 200) {
@@ -54,7 +58,7 @@ const Watchvideo = () => {
     };
 
     fetchVideo();
-    getAllComment(); 
+    getAllComment();
     dispatch(fetchVideos(search));
   }, [id, dispatch, search]);
 
@@ -73,10 +77,13 @@ const Watchvideo = () => {
   const toggleLike = async (videoId) => {
     try {
       const res = await axios.post(
-        `https://backend-twff.onrender.com/api/v1/likes/${videoId}`,
+        `https://backend-5h59.onrender.com/api/v1/likes/${videoId}`,
         {},
         {
           withCredentials: true,
+          headers: {
+            Authorization: Cookies.get("accessToken"),
+          },
         }
       );
       setLike(res.data.data.isliked);
@@ -88,10 +95,13 @@ const Watchvideo = () => {
   const toggleSubscribed = async (ownerId) => {
     try {
       const res = await axios.post(
-        `https://backend-twff.onrender.com/api/v1/subscriptions/c/${ownerId}`,
+        `https://backend-5h59.onrender.com/api/v1/subscriptions/c/${ownerId}`,
         {},
         {
           withCredentials: true,
+        headers:{
+          Authorization:Cookies.get("accessToken")
+      }
         }
       );
       setSubscription(res.data.data.subscribed);
@@ -103,9 +113,13 @@ const Watchvideo = () => {
   const getAllComment = async () => {
     try {
       const res = await axios.get(
-        `https://backend-twff.onrender.com/api/v1/comment/${id}`,
+        `https://backend-5h59.onrender.com/api/v1/comment/${id}`,
         {
-          withCredentials: true,
+          withCredentials: true
+          ,
+        headers:{
+          Authorization:Cookies.get("accessToken")
+      }
         }
       );
       if (res.status === 200) {
@@ -120,10 +134,14 @@ const Watchvideo = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `https://backend-twff.onrender.com/api/v1/comment/${id}`,
+        `https://backend-5h59.onrender.com/api/v1/comment/${id}`,
         { content: comment },
         {
-          withCredentials: true,
+          withCredentials: true
+          ,
+          headers:{
+          Authorization:Cookies.get("accessToken")
+      }
         }
       );
       if (res.status === 200) {
@@ -138,12 +156,15 @@ const Watchvideo = () => {
   const handleUpdateComment = async (e) => {
     e.preventDefault();
     try {
-      console.log(editCommentId)
+      console.log(editCommentId);
       const res = await axios.patch(
-        `https://backend-twff.onrender.com/api/v1/comment/c/${editCommentId}`,
+        `https://backend-5h59.onrender.com/api/v1/comment/c/${editCommentId}`,
         { content: editCommentContent },
         {
           withCredentials: true,
+          headers: {
+            Authorization: Cookies.get("accessToken"),
+          },
         }
       );
       if (res.status === 200) {
@@ -171,7 +192,7 @@ const Watchvideo = () => {
           <div className="w-full h-full">
             <div>
               <video
-                src={`https://backend-twff.onrender.com/${video.videoFile}`}
+                src={`https://backend-5h59.onrender.com/${video.videoFile}`}
                 className="overflow-auto rounded-md"
                 controls
                 autoPlay
@@ -182,7 +203,7 @@ const Watchvideo = () => {
                 <div>
                   <img
                     className="h-9 w-9 rounded-full mx-2"
-                    src={`https://backend-twff.onrender.com/${video.owner?.avatar}`}
+                    src={`https://backend-5h59.onrender.com/${video.owner?.avatar}`}
                     alt="Owner Avatar"
                   />
                   <h1 className="mt-3">
@@ -250,10 +271,13 @@ const Watchvideo = () => {
                 </form>
               </div>
               {getcomments.map((comm) => (
-                <div className="w-full border-gray-100 border-y-2" key={comm._id}>
+                <div
+                  className="w-full border-gray-100 border-y-2"
+                  key={comm._id}
+                >
                   <div className="flex bg-black">
                     <img
-                      src={`https://backend-twff.onrender.com/${comm.owner.avatar}`}
+                      src={`https://backend-5h59.onrender.com/${comm.owner.avatar}`}
                       onClick={() => getuserchannel(comm.owner.username)}
                       className="h-9 w-9 my-auto rounded-full cursor-pointer"
                     />
@@ -287,8 +311,14 @@ const Watchvideo = () => {
                       )}
                     </div>
                     <div className="flex">
-                      <i className="fa m-2 fa-thumbs-up flex-wrap" aria-hidden="true"></i>
-                      <i className="fa m-2 fa-thumbs-down" aria-hidden="true"></i>
+                      <i
+                        className="fa m-2 fa-thumbs-up flex-wrap"
+                        aria-hidden="true"
+                      ></i>
+                      <i
+                        className="fa m-2 fa-thumbs-down"
+                        aria-hidden="true"
+                      ></i>
                     </div>
                     {data._id === comm.owner._id && !editCommentId && (
                       <i
@@ -315,7 +345,6 @@ const Watchvideo = () => {
         ) : (
           <p>Loading...</p>
         )}
-      
 
         <div className="video-panel ms-3 lg:ms-10 grid md:grid-cols-2 lg:grid-cols-1">
           {videos.map((video, index) => (
@@ -328,7 +357,7 @@ const Watchvideo = () => {
             >
               <div className="relative h-36 w-full">
                 <img
-                  src={`https://backend-twff.onrender.com/${video.thumbnail}`}
+                  src={`https://backend-5h59.onrender.com/${video.thumbnail}`}
                   className={`h-full w-full object-cover transition-opacity duration-500 bg-white ${
                     activeVideo === index ? "opacity-0" : "opacity-100"
                   }`}
@@ -346,7 +375,7 @@ const Watchvideo = () => {
                   muted
                 >
                   <source
-                    src={`https://backend-twff.onrender.com/${video.videoFile}`}
+                    src={`https://backend-5h59.onrender.com/${video.videoFile}`}
                     type="video/mp4"
                   />
                 </video>
@@ -354,7 +383,7 @@ const Watchvideo = () => {
               <div className="flex flex-shrink-0">
                 <div>
                   <img
-                    src={`https://backend-twff.onrender.com/${video?.useravatar}`}
+                    src={`https://backend-5h59.onrender.com/${video?.useravatar}`}
                     className="p-2 w-14 rounded-full h-10"
                     alt="User Avatar"
                   />

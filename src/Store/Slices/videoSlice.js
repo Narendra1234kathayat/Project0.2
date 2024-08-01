@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { clearSearch } from "./searchSlice";
+import Cookies from "js-cookie";
+
 
 export const Status = Object.freeze({
   idle: "IDLE",
@@ -30,19 +32,25 @@ export default videoSlice.reducer;
 // Thunks
 export function fetchVideos() {
   return async function fetchVideosThunk(dispatch, getState) {
+    console.log("aaa", Cookies.get('accessToken'));
+    console.log(Cookies);
     try {
+
       dispatch(setStatus(Status.loading));
       const searchData = getState().search.data; // Correctly access search data
       //console.log(searchData);
       const requestOptions = {
         method: "GET",
-        url: "https://backend-twff.onrender.com/api/v1/videos",
+        url: "https://backend-5h59.onrender.com/api/v1/videos",
         params: { query: searchData },
         withCredentials: true,
+        headers: {
+          Authorization: Cookies.get('accessToken')
+        }
       };
-
+      
       const res = await axios(requestOptions);
-      // const res = await axios.get(`https://backend-twff.onrender.com/api/v1/videos`, {
+      // const res = await axios.get(`https://backend-5h59.onrender.com/api/v1/videos`, {
       //   params: { query: searchData },
       //   withCredentials: true,
       // });

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Cookies from "js-cookie"
 const Likedvideos = () => {
     const [videos, setLikedVideos] = useState([]);
     const [activeVideo, setActiveVideo] = useState(null);
@@ -18,8 +18,11 @@ const Likedvideos = () => {
 
     const likedVideos = async () => {
         try {
-            const res = await axios.get("https://backend-twff.onrender.com/api/v1/likes/videos", {
-                withCredentials: true
+            const res = await axios.get("https://backend-5h59.onrender.com/api/v1/likes/videos", {
+                withCredentials: true,
+                headers:{
+                    Authorization:Cookies.get("accessToken")
+                }
             });
             if (res.status === 200 && res.data?.data?.[0]?.likedVideo) {
                 console.log(res.data.data);
@@ -65,7 +68,7 @@ const Likedvideos = () => {
                             onMouseLeave={() => handleMouseLeave()}
                             onClick={()=>handleWatchVideo(video.likedVideo._id)}
                         >
-                            <img className={`h-full w-full absolute bg-white ${activeVideo === index ? "opacity-0":"opacity-100"}`} src={`https://backend-twff.onrender.com/${video.likedVideo.thumbnail}`} alt="" />
+                            <img className={`h-full w-full absolute bg-white ${activeVideo === index ? "opacity-0":"opacity-100"}`} src={`https://backend-5h59.onrender.com/${video.likedVideo.thumbnail}`} alt="" />
                             <video
                                 ref={(el) => (videoRefs.current[index] = el)}
                                 className={`absolute h-full rounded-lg w-full object-cover z-0 ${activeVideo === index ? "opacity-100 block" : "opacity-0 hidden"}`}
@@ -73,12 +76,12 @@ const Likedvideos = () => {
                                 loop
                                 muted
                             >
-                                <source src={`https://backend-twff.onrender.com/${video.likedVideo.videoFile}`} type="video/mp4" />
+                                <source src={`https://backend-5h59.onrender.com/${video.likedVideo.videoFile}`} type="video/mp4" />
                             </video>
                         </div>
                         <div className='flex'>
                             <div className='flex flex-col mx-2'>
-                                <img className='h-12 w-10  rounded-full py-2' src={`https://backend-twff.onrender.com/${video.likedVideo.ownerDetails.avatar}`} />
+                                <img className='h-12 w-10  rounded-full py-2' src={`https://backend-5h59.onrender.com/${video.likedVideo.ownerDetails.avatar}`} />
                                 <p className='text-sm'>{video.likedVideo.ownerDetails.username.toUpperCase()}</p>
                               
 

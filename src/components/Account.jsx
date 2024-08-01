@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
+import Cookies from "js-cookie";
 
 const Account = () => {
   const { type } = useParams();
@@ -36,7 +37,7 @@ const Account = () => {
         }
       }
     });
-  }, [activeVideo]);
+  }, [activeVideo, Cookies.get("accessToken")]);
 
   useEffect(() => {
     if (all.length > 0) {
@@ -50,8 +51,11 @@ const Account = () => {
 
   const handleChannel = async () => {
     try {
-      const response = await axios.get(`https://backend-twff.onrender.com/api/v1/users/c/${user}`, {
-        withCredentials: true
+      const response = await axios.get(`https://backend-5h59.onrender.com/api/v1/users/c/${user}`, {
+        withCredentials: true,
+        headers:{
+          Authorization: Cookies.get("accessToken")
+        }
       });
       if (response.data && response.data.data) {
         setAll([response.data.data]);
@@ -68,8 +72,11 @@ const Account = () => {
 
   const getUserDetails = async () => {
     try {
-      const res = await axios.get("https://backend-twff.onrender.com/api/v1/users/currentuser", {
-        withCredentials: true
+      const res = await axios.get("https://backend-5h59.onrender.com/api/v1/users/currentuser", {
+        withCredentials: true,
+        headers:{
+          Authorization:Cookies.get("accessToken")
+      }
       });
       if (res.status === 200) {
         setUserDetail(res.data.data);
@@ -100,9 +107,13 @@ const Account = () => {
         throw new Error('User ID is required');
       }
 
-      const res = await axios.get('https://backend-twff.onrender.com/api/v1/videos/', {
+      const res = await axios.get('https://backend-5h59.onrender.com/api/v1/videos/', {
         params: { userId: _id },
         withCredentials: true
+        ,
+        headers:{
+          Authorization:Cookies.get("accessToken")
+      }
       });
 
       const userVideos = res.data.data;
@@ -126,10 +137,11 @@ const Account = () => {
     if (avatar) formData.append('avatar', avatar);
 
     try {
-      const response = await axios.patch(`https://backend-twff.onrender.com/api/v1/users/update-avatar`, formData, {
+      const response = await axios.patch(`https://backend-5h59.onrender.com/api/v1/users/update-avatar`, formData, {
         withCredentials: true,
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          Authorization:Cookies.get("accessToken")
         }
       });
       if (response.status === 200) {
@@ -150,10 +162,11 @@ const Account = () => {
     if (coverImg) formData.append('coverImg', coverImg);
 
     try {
-      const response = await axios.patch(`https://backend-twff.onrender.com/api/v1/users/cover-Image`, formData, {
+      const response = await axios.patch(`https://backend-5h59.onrender.com/api/v1/users/cover-Image`, formData, {
         withCredentials: true,
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          Authorization:Cookies.get("accessToken")
         }
       });
       if (response.status === 200) {
@@ -199,9 +212,9 @@ const Account = () => {
           {error && <h1 className="text-red-500 text-center">{error}</h1>}
           {all.length > 0 && all.map((u) => (
             <div key={u._id} className="p-2 rounded-lg shadow-lg mb-8 bg-black text-white relative">
-              <img src={`https://backend-twff.onrender.com/${u.coverImg}`} className="w-full h-56 object-contain bg-white rounded-t-lg cursor-pointer" alt="coverimg" onClick={handleCoverImgClick} />
+              <img src={`https://backend-5h59.onrender.com/${u.coverImg}`} className="w-full h-56 object-contain bg-white rounded-t-lg cursor-pointer" alt="coverimg" onClick={handleCoverImgClick} />
               <div className="w-24 h-24 mb-4 absolute top-32 left-20 cursor-pointer" onClick={handleUpdateClick}>
-                <img src={`https://backend-twff.onrender.com/${u.avatar}`} className="w-full h-full object-cover border-4 border-black rounded-full" alt={u.avatar} />
+                <img src={`https://backend-5h59.onrender.com/${u.avatar}`} className="w-full h-full object-cover border-4 border-black rounded-full" alt={u.avatar} />
               </div>
               <div className="userprofile w-full flex flex-col  px-4 mt-3">
                 <div className="mb-4">
@@ -308,7 +321,7 @@ const Account = () => {
                 >
                   <div className="relative h-52 md:h-48 w-full">
                     <img
-                      src={`https://backend-twff.onrender.com/${video.thumbnail}`}
+                      src={`https://backend-5h59.onrender.com/${video.thumbnail}`}
                       className={`h-full w-full object-fill bg-white transition-opacity duration-500 ${activeVideo === index ? "opacity-0" : "opacity-100"}`}
                       alt=""
                     />
@@ -319,13 +332,13 @@ const Account = () => {
                       loop
                       muted
                     >
-                      <source src={`https://backend-twff.onrender.com/${video.videoFile}`} type="video/mp4" />
+                      <source src={`https://backend-5h59.onrender.com/${video.videoFile}`} type="video/mp4" />
                     </video>
                   </div>
                   <div className="flex flex-shrink-0 p-1">
                     <div className="me-1">
                       <img
-                        src={`https://backend-twff.onrender.com/${video.useravatar}`}
+                        src={`https://backend-5h59.onrender.com/${video.useravatar}`}
                         className="p-2 w-14 rounded-full h-14"
                         alt="avatar"
                       />
